@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { TConstructorIngredient } from '@utils-types';
+import { TConstructorIngredient, TIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
@@ -17,16 +17,17 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    const newOrder = [
-      constructorItems.bun._id,
-      constructorItems.bun._id,
-      ...constructorItems.ingredients.map((ingredients) => ingredients._id)
-    ];
-    if (!user) {
-      navigate('/login');
-    } else {
-      dispatch(orderBurger(newOrder));
-    }
+    if (!user) return navigate('/login');
+
+    dispatch(
+      orderBurger([
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map(
+          (ingredient: TIngredient) => ingredient._id
+        ),
+        constructorItems.bun._id
+      ])
+    );
   };
 
   const closeOrderModal = () => {

@@ -121,9 +121,11 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal title='' onClose={closeClick}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal title='' onClose={closeClick}>
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

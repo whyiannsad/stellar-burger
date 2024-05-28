@@ -62,7 +62,7 @@ export const orderSlice = createSlice({
       })
       .addCase(getFeeds.rejected, (state, action) => {
         state.isOrderLoading = false;
-        state.error = action.error.message ?? null;
+        state.error = action.error.message || null;
       })
       .addCase(getFeeds.fulfilled, (state, action) => {
         state.isOrderLoading = false;
@@ -76,7 +76,7 @@ export const orderSlice = createSlice({
       })
       .addCase(getOrders.rejected, (state, action) => {
         state.isOrderLoading = false;
-        state.error = action.error.message ?? null;
+        state.error = action.error.message || null;
       })
       .addCase(getOrders.fulfilled, (state, action) => {
         state.orderRequest = false;
@@ -89,7 +89,7 @@ export const orderSlice = createSlice({
       .addCase(orderBurger.rejected, (state, action) => {
         state.isOrderLoading = false;
         state.orderRequest = false;
-        state.error = action.error.message ?? null;
+        state.error = action.error.message || null;
       })
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.isOrderLoading = false;
@@ -100,7 +100,7 @@ export const orderSlice = createSlice({
         state.isOrderLoading = true;
       })
       .addCase(getOrderByNumber.rejected, (state, action) => {
-        state.error = action.error.message ?? null;
+        state.error = action.error.message || null;
       })
       .addCase(getOrderByNumber.fulfilled, (state, action) => {
         state.isOrderLoading = false;

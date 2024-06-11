@@ -2,14 +2,22 @@ import { TConstructorIngredient } from '@utils-types';
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 
-interface TConstructor {
-  bun: TConstructorIngredient | null;
-  ingredients: TConstructorIngredient[];
+export interface TConstructor {
+  constructorItems: {
+    bun: TConstructorIngredient | null;
+    ingredients: TConstructorIngredient[];
+  };
+  isLoading: boolean;
+  error: string | null;
 }
 
-const initialState: TConstructor = {
-  bun: null,
-  ingredients: []
+export const initialState: TConstructor = {
+  constructorItems: {
+    bun: null,
+    ingredients: []
+  },
+  isLoading: false,
+  error: null
 };
 
 export const burgerConstructorSlice = createSlice({
@@ -19,9 +27,9 @@ export const burgerConstructorSlice = createSlice({
     addIngredients: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
         if (action.payload.type === 'bun') {
-          state.bun = action.payload;
+          state.constructorItems.bun = action.payload;
         } else {
-          state.ingredients.push(action.payload);
+          state.constructorItems.ingredients.push(action.payload);
         }
       },
       prepare: (ingredient: TIngredient) => {
@@ -31,14 +39,15 @@ export const burgerConstructorSlice = createSlice({
     },
     removeIngredients: (state, action) => {
       if (action.payload.type !== 'bun') {
-        state.ingredients = state.ingredients.filter(
-          (ingredients) => ingredients.id !== action.payload
-        );
+        state.constructorItems.ingredients =
+          state.constructorItems.ingredients.filter(
+            (ingredients) => ingredients._id !== action.payload._id
+          );
       }
     },
     clearIngredients: (state) => {
-      state.bun = null;
-      state.ingredients = [];
+      state.constructorItems.bun = null;
+      state.constructorItems.ingredients = [];
     }
   }
 });

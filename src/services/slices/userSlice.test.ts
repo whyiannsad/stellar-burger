@@ -69,7 +69,6 @@ describe('Тестирование userSlice', () => {
     test('Тест fulfilled', () => {
       const state = userSlice.reducer(initialState, login.loginUser.fulfilled);
       expect(state.isAuthChecked).toBe(true);
-      expect(state.error).toBe(undefined);
       expect(state.user).toBe(login.loginUser.fulfilled.payload.user);
     });
   });

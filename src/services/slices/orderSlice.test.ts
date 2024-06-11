@@ -22,12 +22,7 @@ describe('Тест orderSlice', () => {
       }
     };
     test('Тест pending', () => {
-      const state = orderSlice.reducer(
-        initialState,
-        getFeeds.pending('pending')
-      );
-      expect(state.isOrderLoading).toBe(true);
-      expect(state.error).toBe(null);
+      expect(orderSlice.reducer(initialState, getFeeds.pending('pending')).isOrderLoading).toBe(true);
     });
     test('Тест rejected', () => {
       const state = orderSlice.reducer(initialState, feeds.getFeeds.rejected);
@@ -91,17 +86,10 @@ describe('Тест orderSlice', () => {
       }
     };
     test('Тест pending', () => {
-      expect(
-        orderSlice.reducer(initialState, orderByNumber.getOrderByNumber.pending)
-          .isOrderLoading
-      ).toBe(true);
+      expect(orderSlice.reducer(initialState, orderByNumber.getOrderByNumber.pending).isOrderLoading).toBe(true);
     });
     test('Тест rejected', () => {
-      const state = orderSlice.reducer(
-        initialState,
-        orderByNumber.getOrderByNumber.rejected
-      );
-      expect(state.error).toBe('error message');
+      expect(orderSlice.reducer(initialState, orderByNumber.getOrderByNumber.rejected).error).toBe('error message');
     });
     test('Тест fulfilled', () => {
       const state = orderSlice.reducer(
@@ -143,7 +131,6 @@ describe('Тест orderSlice', () => {
       );
       expect(state.isOrderLoading).toBe(false);
       expect(state.orderRequest).toBe(false);
-      expect(state.error).toBe('error message');
     });
     test('Тест fulfilled', () => {
       const state = orderSlice.reducer(

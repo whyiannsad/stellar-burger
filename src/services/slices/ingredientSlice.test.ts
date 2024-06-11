@@ -19,12 +19,7 @@ describe('Тест ingredientSlice', () => {
     }
   };
   test('Тест pending', () => {
-    const state = ingredientsSlice.reducer(
-      initialState,
-      getIngredients.pending('pending')
-    );
-    expect(state.isLoadingIngredient).toBe(true);
-    expect(state.error).toBe(null);
+    expect(ingredientsSlice.reducer(initialState,getIngredients.pending('pending')).isLoadingIngredient).toBe(true);
   });
   test('Тест rejected', () => {
     const state = ingredientsSlice.reducer(

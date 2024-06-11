@@ -1,6 +1,9 @@
+const testUrl = 'http://localhost:4000';
+const bunSelector = '[data-cy = "Флюоресцентная булка R2-D3"]';
+
 describe('Тест конструктора бургеров', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:4000');
+        cy.visit(testUrl);
         cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' });
     });
     describe('Тест на добавлние ингредиентов', () => {
@@ -18,24 +21,24 @@ describe('Тест конструктора бургеров', () => {
     });
     describe('Тест работы модальных окнон', () => {
         it('Окно с ингредиентом', () => {
-            cy.get('[data-cy = "Флюоресцентная булка R2-D3"]').click();
+            cy.get(bunSelector).click();
             cy.get('#modals').contains('Флюоресцентная булка R2-D3');
         });
       
         it('Закрытие по крестику', () => {
-            cy.get('[data-cy = "Флюоресцентная булка R2-D3"]').click();
+            cy.get(bunSelector).click();
             cy.get('#modals').find('button').click();
             cy.get('#modals').children().should('not.exist');
         });
       
         it('Закрытие по оверлею', () => {
-            cy.get('[data-cy = "Флюоресцентная булка R2-D3"]').click();
+            cy.get(bunSelector).click();
             cy.get(`[data-cy='modal']`).click({ force: true });
             cy.get('#modals').children().should('not.exist');
         });
       
         it('Закрытие по кнопке эскейп', () => {
-            cy.get('[data-cy = "Флюоресцентная булка R2-D3"]').click();
+            cy.get(bunSelector).click();
             cy.document().trigger('keydown', { key: 'Escape' });
             cy.get('#modals').children().should('not.exist');
         });
@@ -52,8 +55,8 @@ describe('Тест конструктора бургеров', () => {
         it('Тест оформления заказа', () => {
             cy.intercept('GET', 'api/auth/user', { fixture: 'user.json' });
             cy.intercept('POST', '/api/orders', { fixture: 'order.json' });
-            cy.visit('http://localhost:4000/');
-            cy.get('[data-cy = "Флюоресцентная булка R2-D3"]')
+            cy.visit(testUrl);
+            cy.get(bunSelector)
                 .children('button')
                 .click({ force: true });
             cy.get('[data-cy = "Филе Люминесцентного тетраодонтимформа"]')

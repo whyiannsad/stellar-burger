@@ -3,7 +3,7 @@ import {
   getOrderByNumberApi,
   getOrdersApi,
   orderBurgerApi
-} from '@api';
+} from '../../utils/burger-api';
 import { TOrder, TOrdersData } from '@utils-types';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -16,7 +16,7 @@ interface OrderSliceState {
   feed: TOrdersData | null;
 }
 
-const initialState: OrderSliceState = {
+export const initialState: OrderSliceState = {
   orderRequest: false,
   orderModalData: null,
   orders: [],

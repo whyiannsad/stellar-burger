@@ -8,7 +8,9 @@ import { clearIngredients } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = useSelector((state) => state.burgerConstructor);
+  const constructorItems = useSelector(
+    (state) => state.burgerConstructor.constructorItems
+  );
   const orderRequest = useSelector((state) => state.order.orderRequest);
   const orderModalData = useSelector((state) => state.order.orderModalData);
   const user = useSelector((state) => state.user.user);
